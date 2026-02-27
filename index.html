@@ -25,20 +25,7 @@
       position: relative;
     }
 
-    .menu-btn {
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 48px;
-      height: 48px;
-      border: none;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.28);
-      color: #fff;
-      font-size: 24px;
-      cursor: pointer;
-      backdrop-filter: blur(6px);
-    }
+    
 
     .avatar {
       width: 118px;
@@ -183,7 +170,7 @@
   <main class="page">
     <div style="position:absolute; inset:120px -40px auto auto; width:180px; height:180px; background:rgba(255,255,255,0.08); filter:blur(40px); border-radius:50%; pointer-events:none;"></div>
     <div style="position:absolute; inset:420px auto auto -60px; width:200px; height:200px; background:rgba(255,255,255,0.06); filter:blur(48px); border-radius:50%; pointer-events:none;"></div>
-    <button class="menu-btn" aria-label="更多">⋯</button>
+    
 
     <img class="avatar" src="./avatar.jpg" alt="头像" />
 
@@ -200,11 +187,11 @@
     </a>
 
     <section class="buttons" style="position:relative; z-index:1;">
-      <a class="card-link" href="https://www.689782.xyz" target="_blank" rel="noopener noreferrer">
+      <a class="card-link" href="#" onclick="openPasswordPrompt(event)">
         <span class="left-icon">☞</span>
         <div class="card-text">
           主入口
-          <small>点击进入主站</small>
+          <small>输入密码后进入主站</small>
         </div>
         <span class="right-icon">🔒</span>
       </a>
@@ -228,5 +215,17 @@
       还需要补充主入口和下载按钮的安全目标链接。
     </div>
   </main>
+  <script>
+    function openPasswordPrompt(event) {
+      event.preventDefault();
+      const pwd = window.prompt('请输入访问密码');
+      if (pwd === null) return;
+      if (pwd.trim() === '0801') {
+        window.open('https://www.689782.xyz', '_blank', 'noopener,noreferrer');
+      } else {
+        window.alert('密码错误，请重试。');
+      }
+    }
+  </script>
 </body>
 </html>
