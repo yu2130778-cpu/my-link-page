@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>全网TG低价批发</title>
+  <title>TG低价批发</title>
   <style>
     * {
       box-sizing: border-box;
@@ -27,7 +27,7 @@
       background-color: #182b7d;
     }
 
-    /* 背景图层：桌面端 */
+    /* 桌面端背景 */
     body::before {
       content: "";
       position: fixed;
@@ -39,7 +39,7 @@
       transform: translateZ(0);
     }
 
-    /* 柔光叠层 */
+    /* 柔光层 */
     body::after {
       content: "";
       position: fixed;
@@ -62,7 +62,6 @@
       z-index: 2;
     }
 
-    /* 页面装饰 */
     .orb {
       position: absolute;
       border-radius: 50%;
@@ -84,7 +83,7 @@
       height: 210px;
       left: -80px;
       top: 360px;
-      background: rgba(131, 173, 255, 0.16);
+      background: rgba(131,173,255,0.16);
       filter: blur(56px);
     }
 
@@ -176,6 +175,7 @@
       color: #9fc2ff;
       text-decoration: underline;
       text-underline-offset: 2px;
+      cursor: pointer;
     }
 
     .buttons {
@@ -408,6 +408,29 @@
       font-weight: 700;
     }
 
+    .copy-toast {
+      position: fixed;
+      left: 50%;
+      bottom: 86px;
+      transform: translateX(-50%);
+      background: rgba(18, 24, 54, 0.86);
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 800;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.18);
+      z-index: 10000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+
+    .copy-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-6px);
+    }
+
     /* 手机端背景适配 */
     @media (max-width: 768px) {
       body {
@@ -507,7 +530,6 @@
       }
     }
 
-    /* 超宽屏电脑端优化 */
     @media (min-width: 1440px) {
       body::before {
         background:
@@ -529,7 +551,7 @@
       <img class="avatar" src="./avatar.jpg" alt="头像" />
     </div>
 
-    <h1>全网TG低价批发</h1>
+    <h1>TG低价批发</h1>
 
     <p class="subtitle">
       TG客服@Yep082<br />
@@ -539,11 +561,11 @@
     </p>
 
     <section class="buttons">
-      <a class="card-link" href="www.689782.xyz" onclick="openPasswordPrompt(event)">
+      <a class="card-link" href="#" onclick="openPasswordPrompt(event)">
         <span class="left-icon">☞</span>
         <div class="card-text">
-          主入口->[密码0801]
-          <small>输入密码后进入全网低价海外号批发主站</small>
+          主入口
+          <small>输入密码后进入主站</small>
         </div>
         <span class="right-icon">🔒</span>
       </a>
@@ -564,7 +586,6 @@
 
     <div class="hint"></div>
 
-    <!-- 主入口密码弹窗 -->
     <div id="passwordModal" class="modal-mask">
       <div class="modal-card">
         <div class="modal-title">主入口验证</div>
@@ -578,7 +599,6 @@
       </div>
     </div>
 
-    <!-- 代理QQ弹窗 -->
     <div id="agentModal" class="modal-mask">
       <div class="modal-card">
         <div class="modal-title">添加代理客服</div>
@@ -600,6 +620,8 @@
         </div>
       </div>
     </div>
+
+    <div id="copyToast" class="copy-toast">已复制</div>
   </main>
 
   <script>
@@ -629,7 +651,6 @@
 
     function openAgentQQ(event) {
       event.preventDefault();
-
       const modal = document.getElementById('agentModal');
       const copyTip = document.getElementById('copyTip');
 
@@ -647,18 +668,21 @@
     }
 
     function copyAgentQQ() {
-      copyText('2604322965', 'copyTip');
+      copyText('2604322965', 'copyTip', '已复制');
     }
 
     function copyPlainQQ(text) {
-      copyText(text, null);
+      copyText(text, null, '已复制');
     }
 
-    function copyText(text, tipId) {
+    function copyText(text, tipId, toastText) {
       const done = function () {
         if (tipId) {
           const tip = document.getElementById(tipId);
           if (tip) tip.style.display = 'block';
+        }
+        if (toastText) {
+          showCopyToast(toastText);
         }
       };
 
@@ -669,6 +693,17 @@
       } else {
         fallbackCopy(text, done);
       }
+    }
+
+    function showCopyToast(message) {
+      const toast = document.getElementById('copyToast');
+      if (!toast) return;
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(window.__copyToastTimer);
+      window.__copyToastTimer = setTimeout(function () {
+        toast.classList.remove('show');
+      }, 1400);
     }
 
     function fallbackCopy(value, callback) {
@@ -706,5 +741,3 @@
   </script>
 </body>
 </html>
-
-
